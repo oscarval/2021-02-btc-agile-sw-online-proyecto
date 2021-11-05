@@ -1,0 +1,20 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Api with server express to connect with mongodb server",
+  "main": "api.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oscarval/2021-02-btc-agile-sw-online-proyecto#master"
+  },
+  "author": "Alexis Valdez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oscarval/2021-02-btc-agile-sw-online-proyecto/issues"
+  },
+  "homepage": "https://github.com/oscarval/2021-02-btc-agile-sw-online-proyecto/tree/master#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
