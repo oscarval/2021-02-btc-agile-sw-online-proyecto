@@ -9,7 +9,7 @@ export class Connect {
       console.log("MongoDB Connection succesfully");
       await this.insertProducts();
     } catch (error) {
-      console.error("MongoDB Connection error");
+      console.error("MongoDB Connection error", error);
       process.exit(1);
     }
   }
