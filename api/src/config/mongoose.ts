@@ -1,5 +1,5 @@
 import mongoose, { connect, connection } from "mongoose";
-import { Product } from "../models/product";
+import { Product } from "../models/product/product";
 import products from "./init-products";
 connect("mongodb://localhost:27018/db-vending", {}, async () => {
   console.log("Connection to mongodb sucessfull");

@@ -1,5 +1,7 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
+// Routes
+import productRouters from "./routes/products";
 
 const port: number = 3000; // default port to listen
 
@@ -11,6 +13,8 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: false }));
 
+// set Routes
+app.use('/products', productRouters);
 
 app.get('/', (req, res) => {
     res.send('Hello world!');
