@@ -17,6 +17,7 @@ export class ProductController {
       const resp = UtilsResponse.responseOK(product);
       res.send(resp);
     } catch (error) {
+      // tslint:disable-next-line:no-console
       console.error(error);
       res.status(500).send(UtilsResponse.responseKO());
     }
@@ -34,6 +35,7 @@ export class ProductController {
       const resp = UtilsResponse.responseOK(product);
       res.send(resp);
     } catch (error) {
+      // tslint:disable-next-line:no-console
       console.error(error);
       res.status(500).send(UtilsResponse.responseKO());
     }
@@ -51,6 +53,7 @@ export class ProductController {
       const resp = UtilsResponse.responseOK(product);
       res.send(resp);
     } catch (error) {
+      // tslint:disable-next-line:no-console
       console.error(error);
       res.status(500).send(UtilsResponse.responseKO());
     }

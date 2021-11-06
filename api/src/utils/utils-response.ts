@@ -4,7 +4,7 @@ export class UtilsResponse {
     return {
       code: 0,
       message: message ? message : "Successful",
-      data: data,
+      data,
     };
   }
 
