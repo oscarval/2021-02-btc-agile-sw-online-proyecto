@@ -1,17 +1,23 @@
-import mongoose, { connect, connection } from "mongoose";
+import mongoose from "mongoose";
 import { Product } from "../models/product/product";
 import products from "./init-products";
-connect("mongodb://localhost:27018/db-vending", {}, async () => {
-  // tslint:disable-next-line:no-console
-  console.log("Connection to mongodb sucessfull");
-  await insertProducts();
-});
+export class Connect {
+  public async init(): Promise<void> {
 
-const insertProducts = async () => {
-  await connection.db.dropCollection("products");
-  for (const product of products) {
-    Product.create(product);
+    try {
+      await mongoose.connect("mongodb://localhost:27018/db-vending");
+      console.log("MongoDB Connection succesfully");
+      await this.insertProducts();
+    } catch (error) {
+      console.error("MongoDB Connection error");
+      process.exit(1);
+    }
   }
-};
 
-export default mongoose;
+  private async insertProducts(): Promise<void> {
+    await mongoose.connection.db.dropCollection("products");
+    for (const product of products) {
+      Product.create(product);
+    }
+  }
+}

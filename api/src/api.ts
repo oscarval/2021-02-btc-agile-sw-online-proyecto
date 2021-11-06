@@ -5,6 +5,16 @@ import productRouters from "./routes/products";
 
 const port: number = 3000; // default port to listen
 
+
+// Moongose init DB
+import { Connect } from "./config/mongoose";
+const connectDB = async () => {
+    console.log('init connect')
+    const cn = new Connect();
+    await cn.init();
+}
+connectDB();
+
 // Express
 const app = express();
 
