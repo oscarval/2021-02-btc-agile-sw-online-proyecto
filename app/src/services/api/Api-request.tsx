@@ -46,58 +46,61 @@ const ApiRequest = {
       };
     },
   },
-  // Cart: {
-  //   GetAll: () => {
-  //     return async (dispatch) => {
-  //       setLoading(dispatch);
-  //       try {
-  //         const apiResponse = await axios
-  //           .get(`${Config.ApiRequest.request.baseURL}/cart`, getOptions())
-  //           .then((res) => res.data);
-  //         setTimeout(() => {
-  //           dispatch({
-  //             type: Config.ApiRequest.actionsTypes.GET_ALL_CART,
-  //             payload: {
-  //               response: apiResponse,
-  //             },
-  //           });
-  //         }, TIMEOUT);
-  //       } catch (err) {
-  //         dispatch({
-  //           type: Config.ApiRequest.actionsTypes.GET_ALL_CART,
-  //           payload: { response: err },
-  //         });
-  //       }
-  //     };
-  //   },
-  //   UpdateCart: (cartData) => {
-  //     return async (dispatch) => {
-  //       setLoading(dispatch);
-  //       try {
-  //         const apiResponse = await axios
-  //           .put(
-  //             `${Config.ApiRequest.request.baseURL}/cart/update`,
-  //             cartData,
-  //             getOptions()
-  //           )
-  //           .then((res) => res.data);
-  //         setTimeout(() => {
-  //           dispatch({
-  //             type: Config.ApiRequest.actionsTypes.UPDATE_CART,
-  //             payload: {
-  //               response: apiResponse,
-  //             },
-  //           });
-  //         }, TIMEOUT);
-  //       } catch (err) {
-  //         dispatch({
-  //           type: Config.ApiRequest.actionsTypes.UPDATE_CART,
-  //           payload: { response: err },
-  //         });
-  //       }
-  //     };
-  //   },
-  // },
+  Cart: {
+    GetAll: () => {
+      return async (dispatch: any) => {
+        setLoading(dispatch);
+        try {
+          const apiResponse = await axios
+            .get(
+              `${Config.ApiRequest.request.baseURL}/cart`,
+              ApiRequest.options
+            )
+            .then((res) => res.data);
+          setTimeout(() => {
+            dispatch({
+              type: Config.ApiRequest.actionsTypes.GET_ALL_CART,
+              payload: {
+                response: apiResponse,
+              },
+            });
+          }, TIMEOUT);
+        } catch (err) {
+          dispatch({
+            type: Config.ApiRequest.actionsTypes.GET_ALL_CART,
+            payload: { response: err },
+          });
+        }
+      };
+    },
+    UpdateCart: (cartData: any) => {
+      return async (dispatch: any) => {
+        setLoading(dispatch);
+        try {
+          const apiResponse = await axios
+            .put(
+              `${Config.ApiRequest.request.baseURL}/cart/update`,
+              cartData,
+              ApiRequest.options
+            )
+            .then((res) => res.data);
+          setTimeout(() => {
+            dispatch({
+              type: Config.ApiRequest.actionsTypes.UPDATE_CART,
+              payload: {
+                response: apiResponse,
+              },
+            });
+          }, TIMEOUT);
+        } catch (err) {
+          dispatch({
+            type: Config.ApiRequest.actionsTypes.UPDATE_CART,
+            payload: { response: err },
+          });
+        }
+      };
+    },
+  },
 };
 
 const setLoading = (dispatch: any) => {

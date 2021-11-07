@@ -17,11 +17,11 @@ const _ShoppingCartSchema: any = new Schema<IShoppingCart>({
 }, opts);
 
 _ShoppingCartSchema.virtual("total").get(function (this: any) {
-  const total = this.products.reduce(
+  const _total = this.products.reduce(
     (total: any, product: any) => (total += product.price * product.quantity),
     0
   );
-  return total;
+  return _total;
 });
 
 const _ShoppingCart = model<IShoppingCart>('ShoppingCart', _ShoppingCartSchema);

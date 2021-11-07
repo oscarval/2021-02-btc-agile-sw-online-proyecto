@@ -6,6 +6,8 @@ import "./Home.scss";
 // bootstrap
 import Button from "react-bootstrap/Button";
 
+const userisDefault: string = "1000";
+
 const Home = (props: any) => {
   // get all products and format
   useEffect(() => {
@@ -32,59 +34,58 @@ const Home = (props: any) => {
   };
 
   // get shopping cart
-  // useEffect(() => {
-  //   props.getProductsCart();
-  // }, []);
-  // const cart = props.state.Cart;
-  // const cartProducts = cart && cart.data ? cart.data.products : [];
-  // const addProduct = (product: any) => {
-  //   const productIndex = cartProducts.findIndex(
-  //     (item: any) => item._id === product._id
-  //   );
-  //   if (productIndex >= 0) {
-  //     cartProducts[productIndex].quantity++;
-  //   } else {
-  //     cartProducts.push(product);
-  //   }
-  //   const newListProduct = cartProducts;
-  //   const cartData = {
-  //     userid: props.state.Login.data._id,
-  //     products: newListProduct,
-  //   };
-  //   props.updateCart(cartData);
-  // };
+  useEffect(() => {
+    props.getProductsCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const cart = props.state.Cart;
+  const cartProducts = cart && cart.data ? cart.data.products : [];
+  const addProduct = (product: any) => {
+    const productIndex = cartProducts.findIndex(
+      (item: any) => item._id === product._id
+    );
+    if (productIndex >= 0) {
+      cartProducts[productIndex].quantity++;
+    } else {
+      cartProducts.push(product);
+    }
+    const newListProduct = cartProducts;
+    const cartData = {
+      userid: userisDefault,
+      products: newListProduct,
+    };
+    props.updateCart(cartData);
+  };
 
-  // const deleteProduct = (id) => {
-  //   let empty = false;
-  //   const productIndex = cartProducts.findIndex((item) => item._id === id);
-  //   if (productIndex >= 0 && cartProducts[productIndex].quantity > 1) {
-  //     cartProducts[productIndex].quantity--;
-  //   } else {
-  //     if (cartProducts.length === 1) {
-  //       empty = true;
-  //     } else {
-  //       delete cartProducts[productIndex];
-  //     }
-  //   }
-  //   const newListProduct = empty ? [] : cartProducts;
-  //   const cartData = {
-  //     userid: props.state.Login.data._id,
-  //     products: newListProduct,
-  //   };
-  //   props.updateCart(cartData);
-  // };
+  const deleteProduct = (id: string) => {
+    let empty = false;
+    const productIndex = cartProducts.findIndex((item: any) => item._id === id);
+    if (productIndex >= 0 && cartProducts[productIndex].quantity > 1) {
+      cartProducts[productIndex].quantity--;
+    } else {
+      if (cartProducts.length === 1) {
+        empty = true;
+      } else {
+        delete cartProducts[productIndex];
+      }
+    }
+    const newListProduct = empty ? [] : cartProducts;
+    const cartData = {
+      userid: userisDefault,
+      products: newListProduct,
+    };
+    props.updateCart(cartData);
+  };
 
   return (
     <div className='Home'>
       <section className='showcase-container'>
         <div className='showcase-content'>
           <div className='showcase-header'>
-            <h4>Arrastre los productos al carrito</h4>
+            <h4>Selecct the product</h4>
           </div>
           <div className='showcase-grid'>
-            <div className='showcase-grid-header'>
-              Nuestra frutas y verduras
-            </div>
+            <div className='showcase-grid-header'>Fruits and Vegetables</div>
             <div className='showcase-grid-content'>
               <div className='showcase-grid-content-wrapper'>
                 {productsAgroup().map((productA: any, indexParent: any) => {
@@ -106,7 +107,7 @@ const Home = (props: any) => {
                               size='sm'
                               className='addbutton'
                               onClick={() => {
-                                //addProduct(product)
+                                addProduct(product);
                               }}>
                               Add
                             </Button>
@@ -118,15 +119,17 @@ const Home = (props: any) => {
                 })}
               </div>
             </div>
-            <div className='showcase-grid-footer'>Gracias por su compra</div>
+            <div className='showcase-grid-footer'>
+              Thanks for shopping with us
+            </div>
           </div>
         </div>
       </section>
 
-      {/* <aside className='carlist-container'>
+      <aside className='carlist-container'>
         <div className='carlist-content'>
           <div className='carlist-header'>
-            <h4>Lista de la compra</h4>
+            <h4>Shopping list</h4>
           </div>
           <div className='carlist-car'>
             <div className='shopping-car-drop'>
@@ -145,13 +148,13 @@ const Home = (props: any) => {
           </div>
           <div className='carlist-products'>
             <div className='carlist-product-item'>
-              <div className='product-name'>Fruta</div>
-              <div className='product-"quantity"'>Cantidad</div>
-              <div className='product-price'>Precio</div>
-              <div className='product-delete'>Borrar</div>
+              <div className='product-name'>Fruit</div>
+              <div className='product-"quantity"'>Quantity</div>
+              <div className='product-price'>Price</div>
+              <div className='product-delete'>Remove</div>
             </div>
             {cartProducts &&
-              cartProducts.map((product, index) => {
+              cartProducts.map((product: any, index: number) => {
                 return (
                   <div
                     id={"product-item-" + product.name}
@@ -177,7 +180,9 @@ const Home = (props: any) => {
                         variant='warning'
                         size='sm'
                         className='addbutton'
-                        onClick={() => deleteProduct(product._id)}>
+                        onClick={() => {
+                          deleteProduct(product._id);
+                        }}>
                         Delete
                       </Button>
                     </div>
@@ -186,7 +191,7 @@ const Home = (props: any) => {
               })}
           </div>
         </div>
-      </aside> */}
+      </aside>
     </div>
   );
 };
@@ -199,7 +204,7 @@ type CustomImgProps = {
 
 class CustomImg extends React.Component<CustomImgProps, any> {
   render() {
-    let image_path = "";
+    let image_path: any;
     try {
       image_path = require("../../assets/img/" + this.props.src);
     } catch (err) {
@@ -207,7 +212,7 @@ class CustomImg extends React.Component<CustomImgProps, any> {
     }
     return (
       <img
-        src={image_path}
+        src={image_path.default}
         className={this.props.className}
         alt={this.props.alt}
       />
@@ -221,12 +226,12 @@ const mapDispacthToProps = (dispatch: any) => ({
   getAllProducts: () => {
     ApiRequest.Products.GetAll()(dispatch);
   },
-  // getProductsCart: () => {
-  //   ApiRequest.Cart.GetAll()(dispatch);
-  // },
-  // updateCart: (cartData) => {
-  //   ApiRequest.Cart.UpdateCart(cartData)(dispatch);
-  // },
+  getProductsCart: () => {
+    ApiRequest.Cart.GetAll()(dispatch);
+  },
+  updateCart: (cartData: any) => {
+    ApiRequest.Cart.UpdateCart(cartData)(dispatch);
+  },
 });
 
 const connectedHome = connect(mapStateToProps, mapDispacthToProps)(Home);
