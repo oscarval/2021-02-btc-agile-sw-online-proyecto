@@ -7,13 +7,9 @@ const port: number = 3000; // default port to listen
 
 
 // Moongose init DB
-import { Connect } from "./config/mongoose";
-const connectDB = async () => {
-    console.log('init connect')
-    const cn = new Connect();
-    await cn.init();
-}
-connectDB();
+import { MongooseDataBase } from "./config/mongoose";
+const db: MongooseDataBase = MongooseDataBase.getInstance();
+db.connect();
 
 // Express
 const app = express();
