@@ -2,6 +2,7 @@ import express, { json, urlencoded } from "express";
 import cors from "cors";
 // Routes
 import productRouters from "./routes/products";
+import shoppingCart from "./routes/shoppingCart";
 
 const port: number = 3002; // default port to listen
 
@@ -21,6 +22,7 @@ app.use(urlencoded({ extended: false }));
 
 // set Routes
 app.use('/products', productRouters);
+app.use('/cart', shoppingCart);
 
 app.get('/', (req, res) => {
     res.send('Hello world!');
