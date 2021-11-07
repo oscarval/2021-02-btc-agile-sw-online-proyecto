@@ -3,7 +3,7 @@ import cors from "cors";
 // Routes
 import productRouters from "./routes/products";
 
-const port: number = 3000; // default port to listen
+const port: number = 3002; // default port to listen
 
 
 // Moongose init DB
