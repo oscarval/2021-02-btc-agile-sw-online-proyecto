@@ -1,4 +1,3 @@
-import { connect } from "http2";
 import mongoose from "mongoose";
 import { Product } from "../models/product/product";
 import products from "./init-products";
@@ -6,10 +5,10 @@ export class MongooseDataBase {
   private static instance: MongooseDataBase;
 
   public static getInstance(): MongooseDataBase {
-    if (MongooseDataBase.instance === null) {
-      MongooseDataBase.instance = new MongooseDataBase();
+    if (!this.instance) {
+      this.instance = new MongooseDataBase();
     }
-    return MongooseDataBase.instance;
+    return this.instance;
   }
 
   public async connect(): Promise<void> {
