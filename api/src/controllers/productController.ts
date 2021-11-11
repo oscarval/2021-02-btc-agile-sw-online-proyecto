@@ -1,29 +1,34 @@
-
-
+import express from "express";
 import { Product } from "../models/product/product";
 import { UtilsResponse } from "../utils/utils-response";
+import { Controller } from "./controller";
 
-export class ProductController {
-
-  public async getById(req: any, res: any): Promise<void> {
+export class ProductController extends Controller {
+  public async getById(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       const product = await Product.findById(req.params.id);
       if (!product) {
         res.status(204);
         res.send(
-          UtilsResponse.responseKO(`Product no exists by id: ${req.paramas.id}`)
+          UtilsResponse.responseKO(`Product no exists by id: ${req.params.id}`)
         );
       }
       const resp = UtilsResponse.responseOK(product);
       res.send(resp);
+      return;
     } catch (error) {
-      // tslint:disable-next-line:no-console
       console.error(error);
       res.status(500).send(UtilsResponse.responseKO());
     }
   }
 
-  public async getAll(req: any, res: any): Promise<void> {
+  public async getAll(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       const product = await Product.find({});
       if (!product) {
@@ -34,14 +39,17 @@ export class ProductController {
       }
       const resp = UtilsResponse.responseOK(product);
       res.send(resp);
+      return;
     } catch (error) {
-      // tslint:disable-next-line:no-console
       console.error(error);
       res.status(500).send(UtilsResponse.responseKO());
     }
   }
 
-  public async updateProduct(req: any, res: any): Promise<void> {
+  public async update(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
       const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -49,11 +57,11 @@ export class ProductController {
       if (!product) {
         res.status(500);
         res.send(UtilsResponse.responseKO("Error to update product"));
+        return;
       }
       const resp = UtilsResponse.responseOK(product);
       res.send(resp);
     } catch (error) {
-      // tslint:disable-next-line:no-console
       console.error(error);
       res.status(500).send(UtilsResponse.responseKO());
     }

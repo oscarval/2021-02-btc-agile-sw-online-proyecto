@@ -8,6 +8,6 @@ productRouters.get("/", productController.getAll);
 
 productRouters.get("/:id", productController.getById);
 
-productRouters.put("/:id", productController.updateProduct);
+productRouters.put("/:id", productController.update);
 
 export default productRouters;

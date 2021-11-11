@@ -1,25 +1,19 @@
-export class UtilsResponse {
+import { IResponse } from "./response.interface";
 
-  public static responseOK(data: any, message?: string): any {
+export class UtilsResponse {
+  public static responseOK(data: any, message?: string): IResponse {
     return {
       code: 0,
-      message: message ? message : "Successful",
       data,
+      message: message ? message : "Successful",
     };
   }
 
-  public static responseKO(error?: any): any {
+  public static responseKO(error?: any): IResponse {
     return {
       code: -1,
+      data: null,
       message: error ? error : "There was a problem",
     };
   }
-
-  public static responseKOToken(error?: any): any {
-    return {
-      code: -500,
-      message: error ? error : "Token invalid",
-    };
-  }
 }
-

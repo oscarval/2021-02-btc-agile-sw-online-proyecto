@@ -30,11 +30,12 @@ export class MongooseDataBase {
     } catch (error) {
       console.error("Erro MongoDB drop collection", error);
     }
-
   }
 
   public async dropCollection(collectionName: string): Promise<void> {
-    const collections = (await mongoose.connection.db.listCollections().toArray()).map(collection => collection.name);
+    const collections: string[] = (
+      await mongoose.connection.db.listCollections().toArray()
+    ).map((collection) => collection.name);
     if (collections.indexOf(collectionName) !== -1) {
       await mongoose.connection.db.dropCollection(collectionName);
     }

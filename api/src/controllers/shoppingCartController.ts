@@ -1,17 +1,27 @@
+import express from "express";
+import { Model } from "mongoose";
+import { IShoppingCart } from "../models/shoppingCart/shoppingCart.interface";
 import { ShoppingCart } from "../models/shoppingCart/shoppingCart";
 import { UtilsResponse } from "../utils/utils-response";
+import { Controller } from "./controller";
 
-export class ShoppingCartController {
-  public async getAllProductsCart(req: any, res: any): Promise<void> {
-    const userid = req._id;
-    const cart = await ShoppingCart.findOne({ userid });
+export class ShoppingCartController extends Controller {
+  public async getAllProductsCart(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
+    const userid: string = req.params._id;
+    const cart: any = await ShoppingCart.findOne({ userid });
     res.send(UtilsResponse.responseOK(cart));
   }
 
-  public async updateCart(req: any, res: any): Promise<void> {
+  public async update(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
     try {
-      const userid = req._id;
-      let cart = await ShoppingCart.findOneAndUpdate(
+      const userid: string = req.params._id;
+      let cart: any = await ShoppingCart.findOneAndUpdate(
         { userid },
         req.body,
         {
@@ -19,7 +29,7 @@ export class ShoppingCartController {
         }
       );
       if (!cart) {
-        const cartNew = await ShoppingCart.create(req.body);
+        const cartNew: any = await ShoppingCart.create(req.body);
         cart = cartNew;
         if (!cartNew) {
           res.status(500).send(UtilsResponse.responseKO());
