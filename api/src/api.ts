@@ -2,9 +2,9 @@ import express, { json, urlencoded } from "express";
 import cors from "cors";
 import { MongooseDataBase } from "./config/mongoose";
 // Routes
-import productRouters from "./routes/products";
-import shoppingCart from "./routes/shoppingCart";
+import { ProductRouter } from "./routes/products";
 import { IInitRoutes } from "./routes/init-routes.interface";
+import { ShoppingCartRouter } from "./routes/shoppingCart";
 
 const PORT_TO_CONNECT: number = 3002; // default port to listen
 
@@ -21,29 +21,27 @@ export class Main {
     this.app.use(urlencoded({ extended: false }));
   }
 
-  private initRoutes(routes:IInitRoutes[]):void{
-    //   for(const route:IInitRoutes of routes){
-    //       this.app.use(route.path,route.controller);
-
-    //   }
-this.app.use();
+  public initRoutes(routes: IInitRoutes[]): void {
+    for (const route of routes) {
+      route.customRoute.setRoutes();
+      this.app.use(route.path, route.customRoute.getRouter());
+    }
+    this.app.get("/", (req: express.Request, res: express.Response) => {
+      res.send("Wellcome to API Showcase");
+    });
   }
 
   public initApp(): void {
-
+    this.app.listen(PORT_TO_CONNECT, () => {
+      console.log(`server started at http://localhost:${PORT_TO_CONNECT}`);
+    });
   }
 }
 
-// set Routes
-app.use("/products", productRouters);
-app.use("/cart", shoppingCart);
-
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
-
-// start the Express serverƒ
-app.listen(PORT_TO_CONNECT, () => {
-  // tslint:disable-next-line:no-console
-  console.log(`server started at http://localhost:${port}`);
-});
+const mainApp = new Main();
+const routeList: IInitRoutes[] = [
+  { customRoute: new ProductRouter(), path: '/products' },
+  { customRoute: new ShoppingCartRouter(), path: '/cart' }
+]
+mainApp.initRoutes(routeList);
+mainApp.initApp();
