@@ -12,7 +12,7 @@ export class ShoppingCartController extends BaseShoppingCartContoller {
     req: express.Request,
     res: express.Response
   ): Promise<void> {
-    const userid: string = req.params._id;
+    const userid: string = req.params.userid;
     const cart: any = await this.entityModel.findOne({ userid });
     res.send(UtilsResponse.responseOK(cart));
   }

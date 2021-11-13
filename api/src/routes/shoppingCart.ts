@@ -9,7 +9,7 @@ export class ShoppingCartRouter extends CustomRoute {
 
     public setRoutes(): void {
         const controller: ShoppingCartController = this.controller as ShoppingCartController;
-        this.router.get("/", (req: express.Request, resp: express.Response) => controller.getAllProductsCart(req, resp));
-        this.router.put("/:id", (req: express.Request, resp: express.Response) => controller.update(req, resp));
+        this.router.get("/:userid", (req: express.Request, resp: express.Response) => controller.getAllProductsCart(req, resp));
+        this.router.put("/update", (req: express.Request, resp: express.Response) => controller.update(req, resp));
     }
 }

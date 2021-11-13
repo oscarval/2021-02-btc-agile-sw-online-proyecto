@@ -16,7 +16,7 @@ export abstract class BaseShoppingCartContoller extends Controller {
         res: express.Response
     ): Promise<void> {
         try {
-            const userid: string = req.params._id;
+            const userid: string = req.body.userid;
             let responseEntity: any = await this.entityModel.findOneAndUpdate(
                 { userid },
                 req.body,
