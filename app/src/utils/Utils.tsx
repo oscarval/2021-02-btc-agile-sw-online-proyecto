@@ -1,9 +1,7 @@
-const Utils = {
-  formatCurrency: (value: any) => {
-    value = value.toFixed(2);
-    const result = (value ? value.toString() : "0") + " €";
+export class Utils {
+  public static formatCurrency(value: number): string {
+    const newValue = value.toFixed(2);
+    const result = (newValue ? newValue.toString() : "0") + " €";
     return result;
-  },
-};
-
-export default Utils;
+  }
+}
