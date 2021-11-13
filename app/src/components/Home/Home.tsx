@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ApiRequest from "../../services/api/Api-request";
-import Utils from "../../utils/Utils";
+
+import { Utils } from "../../utils/Utils";
 import "./Home.scss";
 // bootstrap
 import Button from "react-bootstrap/Button";
+import { ProductApiRequest } from "../../services/api/product-api-request";
+import { CartApiRequest } from "../../services/api/cart-api-request";
 
 const userisDefault: string = "1000";
 
@@ -220,17 +222,20 @@ class CustomImg extends React.Component<CustomImgProps, any> {
   }
 }
 
+const productApirequest: ProductApiRequest = new ProductApiRequest();
+const cartApirequest: CartApiRequest = new CartApiRequest();
+
 const mapStateToProps = (state: any) => ({ state: state });
 
 const mapDispacthToProps = (dispatch: any) => ({
   getAllProducts: () => {
-    ApiRequest.Products.GetAll()(dispatch);
+    productApirequest.GetAll()(dispatch);
   },
   getProductsCart: () => {
-    ApiRequest.Cart.GetAll()(dispatch);
+    cartApirequest.GetAll(userisDefault)(dispatch);
   },
   updateCart: (cartData: any) => {
-    ApiRequest.Cart.UpdateCart(cartData)(dispatch);
+    cartApirequest.UpdateCart(cartData)(dispatch);
   },
 });
 
