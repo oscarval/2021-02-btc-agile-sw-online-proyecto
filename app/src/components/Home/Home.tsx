@@ -24,6 +24,7 @@ const Home = (props: any) => {
         (acc: any[], product: any, index: number) => {
           if (index % 5 === 0) {
             acc[acc.length] = [];
+            acc[acc.length - 1].push(product);
           } else {
             acc[acc.length - 1].push(product);
           }
@@ -49,6 +50,7 @@ const Home = (props: any) => {
     if (productIndex >= 0) {
       cartProducts[productIndex].quantity++;
     } else {
+      product.quantity = 1;
       cartProducts.push(product);
     }
     const newListProduct = cartProducts;
@@ -68,7 +70,7 @@ const Home = (props: any) => {
       if (cartProducts.length === 1) {
         empty = true;
       } else {
-        delete cartProducts[productIndex];
+        cartProducts.splice(productIndex, 1);
       }
     }
     const newListProduct = empty ? [] : cartProducts;

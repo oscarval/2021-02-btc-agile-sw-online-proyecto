@@ -1,12 +1,7 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Model } from "mongoose";
 import { IProduct } from "./product.interface";
 
-const _ProductSchema: any = new Schema<IProduct>({
-  name: {
-    type: String,
-    trim: true,
-    required: [true, "Name is required"],
-  },
+const _ProductSchema: Schema<IProduct> = new Schema<IProduct>({
   quantity: {
     type: Number,
     default: 0,
@@ -17,15 +12,20 @@ const _ProductSchema: any = new Schema<IProduct>({
     default: 0,
     required: false,
   },
-  datecreated: {
-    type: Date,
-    default: Date.now,
-  },
   img: {
     type: String,
     trim: true,
     default: "no_image.png",
     required: false,
+  },
+  name: {
+    type: String,
+    trim: true,
+    required: [true, "Name is required"],
+  },
+  datecreated: {
+    type: Date,
+    default: Date.now,
   },
 });
 
@@ -33,7 +33,7 @@ _ProductSchema.virtual("imgpath").get(function (this: any) {
   return `../assets/img/${this.img}`;
 });
 
-const _Product = model<IProduct>('Product', _ProductSchema);
+const _Product: Model<IProduct> = model<IProduct>("Product", _ProductSchema);
 
-export const Product = _Product;
-export const ProductSchema = _ProductSchema;
+export const Product: Model<IProduct> = _Product;
+export const ProductSchema: Schema<IProduct> = _ProductSchema;

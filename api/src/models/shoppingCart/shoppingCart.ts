@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Model } from "mongoose";
 import { ProductSchema } from "../product/product";
 import { IShoppingCart } from "./shoppingCart.interface";
 
@@ -24,6 +24,6 @@ _ShoppingCartSchema.virtual("total").get(function (this: any) {
   return _total;
 });
 
-const _ShoppingCart = model<IShoppingCart>('ShoppingCart', _ShoppingCartSchema);
+const _ShoppingCart: Model<IShoppingCart> = model<IShoppingCart>('ShoppingCart', _ShoppingCartSchema);
 
-export const ShoppingCart = _ShoppingCart;
+export const ShoppingCart: Model<IShoppingCart> = _ShoppingCart;
