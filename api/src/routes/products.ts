@@ -1,13 +1,17 @@
-import { Router } from "express";
-const productRouters = Router();
-import { ProductController } from "../controllers/productController";
+import express from "express";
+import { ProductController } from "../controllers/product/productController";
+import { CustomRoute } from "./custom-route";
 
-const productController: ProductController = new ProductController();
+export class ProductRouter extends CustomRoute {
+    constructor() {
+        const productController: ProductController = new ProductController();
+        super(productController);
+    }
 
-productRouters.get("/", productController.getAll);
-
-productRouters.get("/:id", productController.getById);
-
-productRouters.put("/:id", productController.update);
-
-export default productRouters;
+    public setRoutes(): void {
+        const controller: ProductController = this.controller as ProductController;
+        this.router.get("/", (req: express.Request, resp: express.Response) => controller.getAll(req, resp));
+        this.router.get("/:id", (req: express.Request, resp: express.Response) => controller.getById(req, resp));
+        this.router.put("/:id", (req: express.Request, resp: express.Response) => controller.update(req, resp));
+    }
+}
