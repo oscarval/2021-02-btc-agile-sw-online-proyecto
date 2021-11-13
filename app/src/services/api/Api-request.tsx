@@ -47,13 +47,13 @@ const ApiRequest = {
     },
   },
   Cart: {
-    GetAll: () => {
+    GetAll: (userid: any) => {
       return async (dispatch: any) => {
         setLoading(dispatch);
         try {
           const apiResponse = await axios
             .get(
-              `${Config.ApiRequest.request.baseURL}/cart`,
+              `${Config.ApiRequest.request.baseURL}/cart/${userid}`,
               ApiRequest.options
             )
             .then((res) => res.data);
