@@ -11,13 +11,15 @@ export class MongooseDataBase {
     return this.instance;
   }
 
-  public async connect(): Promise<void> {
+  public async connect(server: string, port: string, database: string): Promise<boolean> {
     try {
-      await mongoose.connect("mongodb://mongo:27018/db-vending");
-      console.log("MongoDB Connection succesfully");
+      await mongoose.connect(`mongodb://${server}:${port}/${database}`);
+      // console.log("MongoDB Connection succesfully");
       await this.insertProducts();
+      return true;
     } catch (error) {
-      console.error("MongoDB Connection error", error);
+      // console.error("MongoDB Connection error", error);
+      return false;
     }
   }
 

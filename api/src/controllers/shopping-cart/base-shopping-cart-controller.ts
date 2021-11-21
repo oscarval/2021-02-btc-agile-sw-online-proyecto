@@ -28,13 +28,14 @@ export abstract class BaseShoppingCartContoller extends Controller {
                 const responseEntityNew: any = await this.entityModel.create(req.body);
                 responseEntity = responseEntityNew;
                 if (!responseEntityNew) {
-                    res.status(500).send(UtilsResponse.responseKO());
+                    res.status(404).json(UtilsResponse.responseKO('Erro update cart'));
                 }
             }
             res.send(UtilsResponse.responseOK(responseEntity));
         } catch (error) {
             console.error(error);
             res.status(500).send(UtilsResponse.responseKO());
+            return;
         }
     }
 }

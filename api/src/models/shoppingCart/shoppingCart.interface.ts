@@ -4,4 +4,5 @@ export interface IShoppingCart {
     userid: string;
     products: IProduct[];
     datecreated: (Date | number);
+    _id?: string;
 }

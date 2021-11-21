@@ -12,9 +12,20 @@ export class ShoppingCartController extends BaseShoppingCartContoller {
     req: express.Request,
     res: express.Response
   ): Promise<void> {
-    const userid: string = req.params.userid;
-    const cart: any = await this.entityModel.findOne({ userid });
-    res.send(UtilsResponse.responseOK(cart));
+    try {
+      const userid: string = req.params.userid;
+      const cart: any = await this.entityModel.findOne({ userid });
+      if (!cart) {
+        res.status(404).json(UtilsResponse.responseKO("No exists cart data"));
+        return;
+      }
+      res.send(UtilsResponse.responseOK(cart));
+      return;
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(UtilsResponse.responseKO());
+      return;
+    }
   }
 
 
