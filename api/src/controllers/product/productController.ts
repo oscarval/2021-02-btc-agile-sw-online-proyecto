@@ -15,10 +15,8 @@ export class ProductController extends BaseProductContoller {
         try {
             const product = await this.entityModel.findById(req.params.id);
             if (!product) {
-                res.status(204);
-                res.send(
-                    UtilsResponse.responseKO(`Product no exists by id: ${req.params.id}`)
-                );
+                res.status(404).json(UtilsResponse.responseKO(`Product no exists by id: ${req.params.id}`));
+                return;
             }
             const resp = UtilsResponse.responseOK(product);
             res.send(resp);
@@ -26,6 +24,7 @@ export class ProductController extends BaseProductContoller {
         } catch (error) {
             console.error(error);
             res.status(500).send(UtilsResponse.responseKO());
+            return;
         }
     }
 
@@ -36,10 +35,8 @@ export class ProductController extends BaseProductContoller {
         try {
             const product = await this.entityModel.find({});
             if (!product) {
-                res.status(204);
-                res.send(
-                    UtilsResponse.responseKO(`No exists products to: ${req.params.query}`)
-                );
+                res.status(404).json(UtilsResponse.responseKO("No exists products"));
+                return;
             }
             const resp = UtilsResponse.responseOK(product);
             res.send(resp);
@@ -47,6 +44,7 @@ export class ProductController extends BaseProductContoller {
         } catch (error) {
             console.error(error);
             res.status(500).send(UtilsResponse.responseKO());
+            return;
         }
     }
 }

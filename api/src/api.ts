@@ -14,11 +14,19 @@ export class Main {
 
   constructor() {
     this.db = MongooseDataBase.getInstance();
-    this.db.connect();
     this.app = express();
     this.app.use(cors());
     this.app.use(json());
     this.app.use(urlencoded({ extended: false }));
+  }
+
+  public async connectBD(server: string, port: string, database: string): Promise<boolean> {
+    const result: boolean = await this.db.connect(server, port, database);
+    if(result){
+      return result;
+    }else{
+      throw new Error('Error connect to database');
+    }
   }
 
   public initRoutes(routes: IInitRoutes[]): void {
@@ -36,12 +44,24 @@ export class Main {
       console.log(`server started at http://localhost:${PORT_TO_CONNECT}`);
     });
   }
+
+  public getApp() {
+    return this.app;
+  }
 }
 
 const mainApp = new Main();
+if (process.env.NODE_ENV !== "test") {
+  mainApp.connectBD('localhost', '27018', 'db-vending');
+}
 const routeList: IInitRoutes[] = [
   { customRoute: new ProductRouter(), path: '/products' },
   { customRoute: new ShoppingCartRouter(), path: '/cart' }
 ]
 mainApp.initRoutes(routeList);
-mainApp.initApp();
+if (process.env.NODE_ENV !== "test") {
+  mainApp.initApp();
+}
+
+export const MainApp = mainApp;
+

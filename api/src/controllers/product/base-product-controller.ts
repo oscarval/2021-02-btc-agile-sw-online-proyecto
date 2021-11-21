@@ -16,10 +16,9 @@ export abstract class BaseProductContoller extends Controller {
         res: express.Response,
     ): Promise<void> {
         try {
-            const responseEntity = await this.entityModel.findByIdAndUpdate(req.params._id, req.body, { new: true, });
+            const responseEntity = await this.entityModel.findByIdAndUpdate(req.body._id, req.body, { new: true, });
             if (!responseEntity) {
-                res.status(500);
-                res.send(UtilsResponse.responseKO("Error to update"));
+                res.status(404).json(UtilsResponse.responseKO("Error update product"));
                 return;
             }
             const resp = UtilsResponse.responseOK(responseEntity);
@@ -27,6 +26,7 @@ export abstract class BaseProductContoller extends Controller {
         } catch (error) {
             console.error(error);
             res.status(500).send(UtilsResponse.responseKO());
+            return;
         }
     }
 }

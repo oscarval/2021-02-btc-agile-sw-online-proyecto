@@ -4,4 +4,5 @@ export interface IProduct {
     price: number;
     datecreated: (Date | number);
     img: string;
+    _id?: string;
 }
