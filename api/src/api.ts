@@ -22,9 +22,9 @@ export class Main {
 
   public async connectBD(server: string, port: string, database: string): Promise<boolean> {
     const result: boolean = await this.db.connect(server, port, database);
-    if(result){
+    if (result) {
       return result;
-    }else{
+    } else {
       throw new Error('Error connect to database');
     }
   }
@@ -52,7 +52,7 @@ export class Main {
 
 const mainApp = new Main();
 if (process.env.NODE_ENV !== "test") {
-  mainApp.connectBD('localhost', '27018', 'db-vending');
+  mainApp.connectBD('mongo', '27018', 'db-vending');
 }
 const routeList: IInitRoutes[] = [
   { customRoute: new ProductRouter(), path: '/products' },
