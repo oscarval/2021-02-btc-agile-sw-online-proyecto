@@ -107,6 +107,7 @@ const Home = (props: any) => {
                               {Utils.formatCurrency(product.price)}
                             </span>
                             <Button
+                              id={product._id + "_add"}
                               variant='success'
                               size='sm'
                               className='addbutton'
@@ -181,6 +182,7 @@ const Home = (props: any) => {
                     </div>
                     <div className='product-delete'>
                       <Button
+                        id={product._id + "_delete"}
                         variant='warning'
                         size='sm'
                         className='addbutton'
