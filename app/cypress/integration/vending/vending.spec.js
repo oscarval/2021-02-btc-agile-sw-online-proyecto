@@ -9,7 +9,7 @@ describe("Testing load page vending", () => {
     it("Visit page", () => {
       cy.visit("http://localhost:3000");
     });
-    it("Check is all products have loaded", () => {
+    it("Check is all products have been loaded", () => {
       cy.get("div.showcase-col").should("have.length", numberOfProducts);
     });
   });
@@ -20,13 +20,49 @@ describe("Testing load page vending", () => {
         cy.get("#" + id + "_add").click();
       }
     });
-  });
 
-  // TODO: check if correct add product to cart and total price
+    it("Check name of product added", () => {
+      cy.get("#product-name-" + idProducts[0]).should("have.text", "Limón");
+    });
+    it("Check quatity of product added", () => {
+      cy.get("#product-quantity-" + idProducts[0]).should("have.text", "2");
+    });
+
+    it("Check price of product added", () => {
+      cy.get("#product-price-" + idProducts[0]).should("have.text", "6.80 €");
+    });
+
+    it("Check price total of all products added", () => {
+      cy.get("#price-total-cart").should("have.text", "9.30 €");
+    });
+  });
 
   context("Delete product to cart", () => {
     it("Delete product", () => {
       cy.get("#" + idProducts[0] + "_delete").click();
+    });
+
+    it("Check quatity of product added", () => {
+      cy.get("#product-quantity-" + idProducts[0]).should("have.text", "1");
+    });
+
+    it("Check price of product added", () => {
+      cy.get("#product-price-" + idProducts[0]).should("have.text", "3.40 €");
+    });
+
+    it("Check price total of all products added", () => {
+      cy.get("#price-total-cart").should("have.text", "5.90 €");
+    });
+  });
+
+  context("Buy products selected", () => {
+    it("Click buy products", () => {
+      cy.get("#buy-products").click();
+      cy.get(".carlist-product-item").should("have.length", "1");
+    });
+
+    it("Check reset price total of all products ", () => {
+      cy.get("#price-total-cart").should("have.text", "0.00 €");
     });
   });
 });
