@@ -8,12 +8,13 @@ import Button from "react-bootstrap/Button";
 import { ProductApiRequest } from "../../services/api/product-api-request";
 import { CartApiRequest } from "../../services/api/cart-api-request";
 
-const userisDefault: string = "1000";
+const userisDefault: string = Math.ceil(Math.random() * 1000).toString();
 
 const Home = (props: any) => {
   // get all products and format
   useEffect(() => {
     props.getAllProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const products = props.state.Products;
@@ -81,6 +82,17 @@ const Home = (props: any) => {
     props.updateCart(cartData);
   };
 
+  const buyProducts = () => {
+    cartProducts.splice(0, cartProducts.length);
+    const newListProduct = cartProducts;
+    const cartData = {
+      userid: userisDefault,
+      products: newListProduct,
+    };
+    props.updateCart(cartData);
+    // alert("Thanks for your purchase");
+  };
+
   return (
     <div className='Home'>
       <section className='showcase-container'>
@@ -107,6 +119,7 @@ const Home = (props: any) => {
                               {Utils.formatCurrency(product.price)}
                             </span>
                             <Button
+                              id={product._id + "_add"}
                               variant='success'
                               size='sm'
                               className='addbutton'
@@ -136,16 +149,21 @@ const Home = (props: any) => {
             <h4>Shopping list</h4>
           </div>
           <div className='carlist-car'>
-            <div className='shopping-car-drop'>
+            <div
+              className='shopping-car-drop click'
+              onClick={() => {
+                buyProducts();
+              }} id='buy-products'>
               <CustomImg
                 src='shopping-car.png'
                 className='img-format'
                 alt='Car'
               />
+              <div>Click to get products</div>
             </div>
             <div className='shopping-car-total'>
               <p>Total</p>
-              <p className='total'>
+              <p className='total' id='price-total-cart'>
                 {Utils.formatCurrency(cart && cart.data ? cart.data.total : 0)}
               </p>
             </div>
@@ -166,21 +184,22 @@ const Home = (props: any) => {
                     key={index + product._id}>
                     <div
                       className='product-name'
-                      id={"product-name-" + product.name}>
+                      id={"product-name-" + product._id}>
                       {product.name}
                     </div>
                     <div
                       className='product-quantity'
-                      id={"product-quantity-" + product.name}>
+                      id={"product-quantity-" + product._id}>
                       {product.quantity}
                     </div>
                     <div
                       className='product-price'
-                      id={"product-price-" + product.name}>
-                      {Utils.formatCurrency(product.price)}
+                      id={"product-price-" + product._id}>
+                      {Utils.formatCurrency(product.quantity * product.price)}
                     </div>
                     <div className='product-delete'>
                       <Button
+                        id={product._id + "_delete"}
                         variant='warning'
                         size='sm'
                         className='addbutton'
