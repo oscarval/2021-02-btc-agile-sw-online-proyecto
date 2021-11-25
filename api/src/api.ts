@@ -1,6 +1,6 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
-import { MongooseDataBase } from "./config/mongoose";
+import { MongooseDataBase } from "./config/mongoose-database";
 // Routes
 import { ProductRouter } from "./routes/products";
 import { IInitRoutes } from "./routes/init-routes.interface";
