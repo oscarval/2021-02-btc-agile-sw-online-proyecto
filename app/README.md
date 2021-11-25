@@ -11,23 +11,25 @@ Also, we apply SOLID principles to develop.
 
 ## Requirements
 
-Firstly, you must run `cd ..` and after run `docker-compose up`
+Install docker and docker-compose in local machine
+
+Firstly, run `npm install` to install all dependencies<br />
+
+## Build
+
+Please, run `npm run start` to lauch the app<br />
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm run dev`
+### `npm run start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits, only on sheetstyle files or javascript files.
 If you do some modification in html, please reload the browser page
-
-### `npm run build:dev`
-
-Builds the app for development to the `dist` folder.<br />
 
 ### `npm run build`
 
@@ -37,3 +39,12 @@ Builds the app for production to the `dist` folder.<br />
 
 Delete folder `dist`<br />
 IMPORTANT: if you SO is windows, please replace in package.json the line scripts->clean to `rd dist`
+
+### `npm test`
+
+Launch the e2e test with cypress<br />
+
+#### Requirements
+
+In necessary to run the api project to test it<br />
+Please, run command `cd ..` and run the docker compose `docker-compose up --build` if you wanna launch the test only the app project
