@@ -20,7 +20,6 @@ jobs:
         run: docker-compose -f "docker-compose.yml" up -d --build
 
       - name: Install node
-        working-directory: ./api
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
@@ -52,7 +51,6 @@ jobs:
         run: docker-compose -f "docker-compose.yml" up -d --build
 
       - name: Install node
-        working-directory: ./app
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
@@ -62,8 +60,10 @@ jobs:
         run: npm install
 
       - name: Run tests
-        working-directory: ./app
         uses: cypress-io/github-action@v2
+        with:
+          wait-on: http://localhost:3000
+          working-directory: ./app
 
       - name: Stop containers
         working-directory: ./
