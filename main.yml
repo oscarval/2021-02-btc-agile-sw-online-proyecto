@@ -1,0 +1,71 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build_web_api:
+    name: Build and test Api
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Start containers
+        working-directory: ./api
+        run: docker-compose -f "docker-compose.yml" up -d --build
+
+      - name: Install node
+        working-directory: ./api
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        working-directory: ./api
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./api
+        run: npm run test
+
+      - name: Stop containers
+        working-directory: ./api
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
+
+  build_server_app:
+    name: Build and test App
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Start containers
+        working-directory: ./
+        run: docker-compose -f "docker-compose.yml" up -d --build
+
+      - name: Install node
+        working-directory: ./app
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        working-directory: ./app
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./app
+        uses: cypress-io/github-action@v2
+
+      - name: Stop containers
+        working-directory: ./
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
