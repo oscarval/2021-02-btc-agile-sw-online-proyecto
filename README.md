@@ -21,6 +21,13 @@ Descripción: Vending machine to present a Showcase of products (fruits and vege
 Alumno: Oscar Alexis Valdez Morillo
 ```
 
+Se ha re-utilizado el proyecto final del módulo de Backend, y se ha trabajado sobre el<br />
+https://github.com/oscarval/GH_back_final_showcase_mongodb
+
+El vídeo con la explicación de mi defensa, se puede consultar en el siguient enlace:<br />
+https://drive.google.com/file/d/1mcK1bW8ALO_9GrpC7uTCdlsAYUgKJpgs/view?usp=sharing
+https://drive.google.com/file/d/1EffQhpT3_33gpTWsGXLaXPuILIPr0M7K/view?usp=sharing
+
 ## Tecnología, lenguajes y frameworks
 
 En este proyecto, he usado los siguientes:
