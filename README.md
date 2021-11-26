@@ -24,9 +24,8 @@ Alumno: Oscar Alexis Valdez Morillo
 Se ha re-utilizado el proyecto final del módulo de Backend, y se ha trabajado sobre el<br />
 https://github.com/oscarval/GH_back_final_showcase_mongodb
 
-El vídeo con la explicación de mi defensa, se puede consultar en el siguient enlace:<br />
-https://drive.google.com/file/d/1mcK1bW8ALO_9GrpC7uTCdlsAYUgKJpgs/view?usp=sharing
-https://drive.google.com/file/d/1EffQhpT3_33gpTWsGXLaXPuILIPr0M7K/view?usp=sharing
+El vídeo con la explicación de mi defensa, se puede consultar en el siguiente enlace:<br />
+https://drive.google.com/file/d/1ePXpLeMq_B4o6dfD8hq0dpilbeByrkWo/view?usp=sharing
 
 ## Tecnología, lenguajes y frameworks
 
