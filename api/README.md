@@ -20,7 +20,7 @@ After, run `npm run start` to launch app<br />
 In the project directory, you can run:
 
 ## `npm run start`
-
+Please, firstly, run the next command `docker-compose up --build` to up mongo server<br />
 Run script `npm run prebuild`, `npm run build`, `npm run prestart` and start the application<br />
 
 ## `npm run prebuild`

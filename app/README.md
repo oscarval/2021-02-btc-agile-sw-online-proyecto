@@ -17,7 +17,8 @@ Firstly, run `npm install` to install all dependencies<br />
 
 ## Build
 
-Please, run `npm run start` to lauch the app<br />
+Please, firstly, run the next command `docker-compose up --build` to up server express and mongo server<br />
+After, please, run `npm run start` to lauch the app<br />
 
 ## Available Scripts
 
@@ -47,4 +48,4 @@ Launch the e2e test with cypress<br />
 #### Requirements
 
 In necessary to run the api project to test it<br />
-Please, run command `cd ..` and run the docker compose `docker-compose up --build` if you wanna launch the test only the app project
+Please, firstly, run the command `cd ..` and after run the command`docker-compose up --build` to up app, api and mongo server, waiting to up all services. Finally launch the tests with thez command `npm run test`

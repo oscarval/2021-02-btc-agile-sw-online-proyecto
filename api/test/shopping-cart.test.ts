@@ -8,6 +8,8 @@ let appExpress: Express.Application;
 
 let shoppingCart: IShoppingCart;
 
+const userid: string = "1000";
+
 beforeAll(async () => {
   appExpress = MainApp.getApp();
   const connectDB: boolean = await MainApp.connectBD('localhost', '27018', 'db-vending');
@@ -27,9 +29,28 @@ test('first test', () => {
   expect(true).toBe(true);
 })
 
+describe("PUT /cart/update create first cart register", () => {
+  test("should create cart", async () => {
+    shoppingCart = {
+      userid: userid,
+      datecreated: new Date(),
+      products: []
+    };
+    const data = shoppingCart;
+    await request(appExpress)
+      .put(`/cart/update`)
+      .send(data)
+      .expect(200)
+      .expect((res) => {
+        const body = res.body;
+        expect(body.data.products.length === 0).toBe(true);
+      });
+  });
+});
+
+
 describe("GET /cart/:id", () => {
   test("should list cart and their propduct by id", async () => {
-    const userid: string = "1000";
     await request(appExpress)
       .get(`/cart/${userid}`)
       .expect(200)
@@ -55,18 +76,6 @@ describe("GET /cart/:id", () => {
 });
 
 describe("PUT /cart/update", () => {
-  test("should update cart", async () => {
-    shoppingCart.products = [];
-    const data = shoppingCart;
-    await request(appExpress)
-      .put(`/cart/update`)
-      .send(data)
-      .expect(200)
-      .expect((res) => {
-        const body = res.body;
-        expect(body.data.products.length === 0).toBe(true);
-      });
-  });
   test("should update product not found", async () => {
     const randomSufixID: string = Math.ceil(Math.random() * 100).toString();
     const randomUserid: string = Math.ceil(Math.random() * 1000).toString();

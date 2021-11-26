@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   api:
-    build: "./api"
+    build: "../api"
     ports:
       - "3002:3002"
     links:
@@ -14,8 +14,3 @@ services:
     ports:
       - 27018:27018
     command: --bind_ip_all --port 27018
-
-  app:
-    build: "./app"
-    ports:
-      - "3000:3000"
