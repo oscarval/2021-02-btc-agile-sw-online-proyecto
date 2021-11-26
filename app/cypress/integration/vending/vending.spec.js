@@ -1,9 +1,12 @@
+import { Utils } from "../../../src/utils/Utils";
+
 const numberOfProducts = 16;
-const idProducts = [
-  "619cfa69c0d8c9407e6a15ed", //limón
-  "619cfa69c0d8c9407e6a15ed", //limón
-  "619cfa69c0d8c9407e6a15e7", // piña
-];
+const idProducts = [];
+let nameProduct1 = "";
+let priceProduct1 = 0;
+let priceProduct2 = 0;
+let priceTotal = 0;
+
 describe("Testing load page vending", () => {
   context("Load page", () => {
     it("Visit page", () => {
@@ -11,6 +14,53 @@ describe("Testing load page vending", () => {
     });
     it("Check is all products have been loaded", () => {
       cy.get("div.showcase-col").should("have.length", numberOfProducts);
+      // add id products
+
+      cy.get("div.showcase-col")
+        .eq(0)
+        .find("button")
+        .invoke("attr", "id")
+        .then((id) => {
+          idProducts.push(id.replace("_add", ""));
+        });
+      cy.get("div.showcase-col")
+        .eq(0)
+        .find("button")
+        .invoke("attr", "id")
+        .then((id) => {
+          idProducts.push(id.replace("_add", ""));
+        });
+      cy.get("div.showcase-col")
+        .eq(1)
+        .find("button")
+        .invoke("attr", "id")
+        .then((id) => {
+          idProducts.push(id.replace("_add", ""));
+        });
+      // get name
+      cy.get("div.showcase-col")
+        .eq(0)
+        .find("img")
+        .invoke("attr", "alt")
+        .then((alt) => {
+          nameProduct1 = alt;
+        });
+      // get price
+      cy.get("div.showcase-col")
+        .eq(0)
+        .find("span")
+        .invoke("text")
+        .then((text) => {
+          priceProduct1 = +text.replace("€", "");
+        });
+      cy.get("div.showcase-col")
+        .eq(1)
+        .find("span")
+        .invoke("text")
+        .then((text) => {
+          priceProduct2 = +text.replace("€", "");
+          priceTotal = priceProduct1 * 2 + priceProduct2;
+        });
     });
   });
 
@@ -22,18 +72,27 @@ describe("Testing load page vending", () => {
     });
 
     it("Check name of product added", () => {
-      cy.get("#product-name-" + idProducts[0]).should("have.text", "Limón");
+      cy.get("#product-name-" + idProducts[0]).should(
+        "have.text",
+        nameProduct1
+      );
     });
     it("Check quatity of product added", () => {
       cy.get("#product-quantity-" + idProducts[0]).should("have.text", "2");
     });
 
     it("Check price of product added", () => {
-      cy.get("#product-price-" + idProducts[0]).should("have.text", "6.80 €");
+      cy.get("#product-price-" + idProducts[0]).should(
+        "have.text",
+        Utils.formatCurrency(priceProduct1 * 2)
+      );
     });
 
     it("Check price total of all products added", () => {
-      cy.get("#price-total-cart").should("have.text", "9.30 €");
+      cy.get("#price-total-cart").should(
+        "have.text",
+        Utils.formatCurrency(priceTotal)
+      );
     });
   });
 
@@ -47,11 +106,17 @@ describe("Testing load page vending", () => {
     });
 
     it("Check price of product added", () => {
-      cy.get("#product-price-" + idProducts[0]).should("have.text", "3.40 €");
+      cy.get("#product-price-" + idProducts[0]).should(
+        "have.text",
+        Utils.formatCurrency(priceProduct1)
+      );
     });
 
     it("Check price total of all products added", () => {
-      cy.get("#price-total-cart").should("have.text", "5.90 €");
+      cy.get("#price-total-cart").should(
+        "have.text",
+        Utils.formatCurrency(priceTotal - priceProduct1)
+      );
     });
   });
 
